@@ -1,0 +1,44 @@
+[user]
+	email = hmp.rydberg@gmail.com
+	name = Peter Rydberg
+
+[alias]
+    unstage       = reset HEAD --
+    discard       = reset --hard HEAD
+    s             = status -sb
+    st            = status
+    ci            = commit
+    co            = checkout
+    br            = branch
+    pu            = push origin master
+    up            = pull --rebase
+    reb           = rebase
+    l             = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen%cr%Creset' -n 15
+    ll            = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%aN, %C(dim cyan)%ci%Cgreen)%Creset'
+    lla           = "!git ll --all"
+    lg            = log --pretty='tformat:%Cred%h%Creset %C(yellow)%an%Creset (%Cgreen%ar%Creset) %s'
+    local         = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
+    rank          = shortlog -s -n --no-merges
+    undo          = reset --soft HEAD^
+    w             = whatchanged --oneline
+    fix           = commit --amend -C HEAD
+    ds            = diff -b --staged
+    d             = diff -b
+    b             = branch
+    dw            = diff -b --word-diff=color
+    c             = commit -m
+    ca            = commit -am
+    last          = log -1 HEAD
+    alias         = "!git config --get-regexp ^alias\\. | sed -e 's/^alias\\.//' -e 's/ / = /'"
+    prettiercheck = "!git diff --diff-filter=MA --name-only HEAD~2... | xargs npx prettier --check"
+    prettierwrite = "!git diff --diff-filter=MA --name-only HEAD~2... | xargs npx prettier --write"
+    giveup        = "!f() { \
+        branch=$(git rev-parse --abbrev-ref HEAD); \
+        git checkout main && \
+        git pull && \
+        git branch -d \"$branch\" && \
+        git push origin --delete \"$branch\"; \
+    }; f"
+
+[core]
+	editor = vim
