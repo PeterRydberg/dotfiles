@@ -1,0 +1,7 @@
+# Created by newuser for 5.9
+
+eval "$(starship init zsh)"
+export PATH="$HOME/bin:$PATH"
+
+export EDITOR=vim
+export VISUAL="$EDITOR"
