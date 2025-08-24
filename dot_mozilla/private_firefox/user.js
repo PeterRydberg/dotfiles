@@ -1,4 +1,4 @@
-user_pref("ui.key.menuAccessKeyFocuses", false);
+user_pref("ui.key.menuAccessKeyFocuses", true);
 user_pref("browser.aboutConfig.showWarning", false);
 user_pref("browser.bookmarks.editDialog.confirmationHintShowCount", 3);
 user_pref("browser.bookmarks.restore_default_bookmarks", false);
