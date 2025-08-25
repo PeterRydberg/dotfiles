@@ -8,6 +8,7 @@ compinit
 # Normalize paths during completion
 zstyle ':completion:*' path-completion yes
 zstyle ':completion:*' squeeze-slashes yes
+zstyle ':completion:*' completer _expand _complete _ignored
 
 export PATH="$HOME/bin:$PATH"
 
