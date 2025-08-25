@@ -16,13 +16,13 @@ export EDITOR=vim
 export VISUAL="$EDITOR"
 
 # Jump word
-#bindkey "\e[1;5D" backward-word   # Ctrl+Left
-#bindkey "\e[1;5C" forward-word    # Ctrl+Right
+bindkey "\e[1;5D" backward-word   # Ctrl+Left
+bindkey "\e[1;5C" forward-word    # Ctrl+Right
 
 # Delete previous word
-#bindkey "\e[1;5H" backward-kill-word
+bindkey "\e[1;5H" backward-kill-word
 #bindkey "^?" backward-kill-word  # For some terminals
 
 # Delete next word
-#bindkey "\e[3;5~" kill-word
+bindkey "\e[3;5~" kill-word
 
