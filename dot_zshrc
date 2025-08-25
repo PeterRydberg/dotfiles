@@ -28,3 +28,10 @@ bindkey "\e[3;5~" kill-word
 # Delete next character
 bindkey "\e[3~" delete-char
 
+
+
+
+
+# Alias #
+
+alias cz=chezmoi
