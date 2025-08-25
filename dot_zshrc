@@ -20,9 +20,11 @@ bindkey "\e[1;5D" backward-word   # Ctrl+Left
 bindkey "\e[1;5C" forward-word    # Ctrl+Right
 
 # Delete previous word
-bindkey "\e[1;5H" backward-kill-word
-#bindkey "^?" backward-kill-word  # For some terminals
+bindkey '^H' backward-kill-word
 
 # Delete next word
 bindkey "\e[3;5~" kill-word
+
+# Delete next character
+bindkey "\e[3~" delete-char
 
