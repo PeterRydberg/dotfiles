@@ -5,14 +5,11 @@ eval "$(starship init zsh)"
 autoload -Uz compinit
 compinit
 
-# Allow path normalization + continuing completion after "." and ".."
-zstyle ':completion:*' completer _expand _complete _ignored
-zstyle ':completion:*' expand prefix suffix
-zstyle ':completion:*' path-completion yes
-zstyle ':completion:*' squeeze-slashes yes
+# Don’t expand/normalize input, just complete literally
+zstyle ':completion:*' completer _complete _ignored
 
-# Make sure cd (and other dir-related completions) normalize paths
-zstyle ':completion:*:(cd|pushd|rmdir):*' tag-order local-directories path-directories
+# Tell path completion it’s okay to continue after "." and ".."
+zstyle ':completion:*' special-dirs true
 
 export PATH="$HOME/bin:$PATH"
 
