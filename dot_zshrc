@@ -1,6 +1,14 @@
 # Created by newuser for 5.9
 
 eval "$(starship init zsh)"
+
+autoload -Uz compinit
+compinit
+
+# Normalize paths during completion
+zstyle ':completion:*' path-completion yes
+zstyle ':completion:*' squeeze-slashes yes
+
 export PATH="$HOME/bin:$PATH"
 
 export EDITOR=vim
