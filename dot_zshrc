@@ -7,7 +7,6 @@ compinit
 
 # Don’t expand/normalize input, just complete literally
 zstyle ':completion:*' completer _complete _ignored
-
 # Tell path completion it’s okay to continue after "." and ".."
 zstyle ':completion:*' special-dirs true
 
@@ -15,4 +14,7 @@ export PATH="$HOME/bin:$PATH"
 
 export EDITOR=vim
 export VISUAL="$EDITOR"
+
+bindkey "\e[1;5D" backward-word   # Ctrl+Left
+bindkey "\e[1;5C" forward-word    # Ctrl+Right
 
