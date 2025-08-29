@@ -1,6 +1,7 @@
 # Created by newuser for 5.9
 
 eval "$(starship init zsh)"
+fpath=(~/.zsh/completions $fpath)
 
 autoload -Uz compinit
 compinit
