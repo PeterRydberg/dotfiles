@@ -40,5 +40,15 @@
         git push origin --delete \"$branch\"; \
     }; f"
 
+[push]
+    default = simple
+    autoSetupRemote = true
+
+[url "git@github.com:"]
+    insteadOf = "https://github.com/"
+
+[merge]
+    conflictstyle = zdiff3
+
 [core]
     editor = vim
