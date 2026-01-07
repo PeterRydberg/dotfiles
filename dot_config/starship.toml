@@ -194,9 +194,6 @@ symbol = " "
 [swift]
 symbol = " "
 
-[xmake]
-symbol = " "
-
 [zig]
 symbol = " "
 
