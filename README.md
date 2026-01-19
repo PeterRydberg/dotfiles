@@ -4,6 +4,6 @@ A repository for my dotfiles, including some scripts for applying random setting
 ## Install
 Make sure you have an SSH key on your device
 
-Do `sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin" init --apply git@github.com:PeterRydberg/dotfiles.git`
+Do `sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:PeterRydberg/dotfiles.git`
 
 Use the email applicable for your machine when prompted.
