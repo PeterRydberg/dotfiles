@@ -1,6 +1,24 @@
 #!/bin/sh
 set -eu
 
+{{ if eq .chezmoi.os "linux" }}
+
+is_wsl() {
+  case "$(uname -r)" in
+    *Microsoft*|*microsoft*)
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+if is_wsl; then
+  echo "WSL detected. Skipping Firefox installation."
+  exit 0
+fi
+
 echo "Installing Firefox..."
 
 if command -v firefox >/dev/null 2>&1; then
@@ -8,10 +26,7 @@ if command -v firefox >/dev/null 2>&1; then
   exit 0
 fi
 
-if command -v brew >/dev/null 2>&1; then
-  brew install --cask firefox
-
-elif command -v apt >/dev/null 2>&1; then
+if command -v apt >/dev/null 2>&1; then
   sudo apt update
   sudo apt install -y firefox
 
@@ -30,4 +45,11 @@ else
 fi
 
 echo "Firefox installation complete."
+
+{{ else }}
+
+echo "Skipping Firefox installation (non-Linux host)."
+exit 0
+
+{{ end }}
 
