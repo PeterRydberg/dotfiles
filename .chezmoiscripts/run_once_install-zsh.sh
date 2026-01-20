@@ -67,4 +67,3 @@ else
   chsh -s "$ZSH_PATH"
 fi
 
-exec /bin/zsh
