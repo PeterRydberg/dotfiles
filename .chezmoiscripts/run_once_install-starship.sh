@@ -17,7 +17,7 @@ elif command -v apt >/dev/null 2>&1; then
   sudo apt install -y starship
 
 elif command -v dnf >/dev/null 2>&1; then
-  dnf copr enable atim/starship 
+  sudo dnf copr enable atim/starship 
   sudo dnf install -y starship
 
 elif command -v pacman >/dev/null 2>&1; then
