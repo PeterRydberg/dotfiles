@@ -92,8 +92,26 @@ else
   echo "SSH key already exists."
 fi
 
+# -----------------------
+# Prompt for GitHub SSH key title
+# -----------------------
+if command -v hostname >/dev/null 2>&1; then
+  DEFAULT_TITLE="$(hostname)"
+elif command -v uname >/dev/null 2>&1; then
+  DEFAULT_TITLE="$(uname -n)"
+else
+  DEFAULT_TITLE="github-ssh-key"
+fi
+
+
+printf "Enter a name for this SSH key on GitHub [%s]: " "$DEFAULT_TITLE"
+read -r KEY_TITLE
+
+if [ -z "$KEY_TITLE" ]; then
+  KEY_TITLE="$DEFAULT_TITLE"
+fi
+
 PUB_KEY="$(cat "$SSH_KEY.pub")"
-TITLE="$(hostname)-$(date +%Y%m%d)"
 
 # -----------------------
 # Check if key already exists on GitHub
@@ -110,7 +128,7 @@ else
     -H "Accept: application/vnd.github+json" \
     "$API_URL" \
     -d "$(jq -n \
-        --arg title "$TITLE" \
+        --arg title "$KEY_TITLE" \
         --arg key "$PUB_KEY" \
         '{title: $title, key: $key}')" >/dev/null
   echo "SSH key uploaded."
