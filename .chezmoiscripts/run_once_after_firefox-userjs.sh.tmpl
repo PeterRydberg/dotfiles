@@ -3,70 +3,71 @@ set -eu
 
 {{ if eq .chezmoi.os "linux" }}
 
-is_wsl() {
-  case "$(uname -r)" in
-    *Microsoft*|*microsoft*)
-      return 0
-      ;;
-    *)
-      return 1
-      ;;
-  esac
-}
+# --- GUI detection helpers -----------------------------------
 
-has_active_display() {
+has_display_env() {
   [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]
 }
 
-has_gui() {
-  # On WSL, require an active display (WSLg)
-  if is_wsl; then
-    has_active_display && return 0
-    return 1
-  fi
-
-  # Non-WSL systems
-  has_active_display && return 0
-
-  # Fallback: system configured for GUI
-  if command -v systemctl >/dev/null 2>&1; then
-    systemctl get-default 2>/dev/null | grep -q graphical.target && return 0
-  fi
-
-  return 1
+has_x11_or_wayland_binaries() {
+  command -v Xorg >/dev/null 2>&1 ||
+  command -v wayland-server >/dev/null 2>&1
 }
 
-if ! has_gui; then
+is_graphical_target() {
+  command -v systemctl >/dev/null 2>&1 &&
+  systemctl get-default 2>/dev/null | grep -q graphical.target
+}
+
+is_wsl() {
+  case "$(uname -r)" in
+    *Microsoft*|*microsoft*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+# --- Decision logic ------------------------------------------
+
+if is_wsl; then
+  echo "WSL detected. Skipping Firefox user.js setup."
+  exit 0
+fi
+
+if ! has_display_env && ! (has_x11_or_wayland_binaries && is_graphical_target); then
   echo "No usable desktop environment detected. Skipping Firefox user.js setup."
   exit 0
 fi
+
+echo "Desktop-capable system detected. Configuring Firefox user.js..."
+
+# --- Firefox checks ------------------------------------------
 
 if ! command -v firefox >/dev/null 2>&1; then
   echo "Firefox is not installed. Skipping user.js setup."
   exit 0
 fi
 
-echo "Configuring Firefox user.js..."
-
 FIREFOX_DIR="$HOME/.mozilla/firefox"
-USERJS="$FIREFOX_DIR/user.js"
+USERJS_SOURCE="$FIREFOX_DIR/user.js"
 
 mkdir -p "$FIREFOX_DIR"
 
-# Create a default profile only if Firefox can actually run
+# Ensure at least one profile exists
 if ! find "$FIREFOX_DIR" -maxdepth 1 -type d -name "*.default*" -print -quit | grep -q .; then
   echo "No Firefox profile found. Creating default profile..."
   firefox -headless -CreateProfile default >/dev/null 2>&1 || true
 fi
 
-if [ ! -f "$USERJS" ]; then
-  echo "No $USERJS found. Skipping user.js linking."
+if [ ! -f "$USERJS_SOURCE" ]; then
+  echo "No $USERJS_SOURCE found. Skipping user.js linking."
   exit 0
 fi
 
+# --- Link user.js into all default profiles ------------------
+
 for PROFILE_DIR in "$FIREFOX_DIR"/*.default* "$FIREFOX_DIR"/*.Default*; do
   if [ -d "$PROFILE_DIR" ]; then
-    ln -sf "$USERJS" "$PROFILE_DIR/user.js"
+    ln -sf "$USERJS_SOURCE" "$PROFILE_DIR/user.js"
     echo "Linked user.js into: $PROFILE_DIR"
   fi
 done
