@@ -14,17 +14,44 @@ is_wsl() {
   esac
 }
 
-if is_wsl; then
-  echo "WSL detected. Skipping Firefox installation."
+has_active_display() {
+  [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]
+}
+
+has_gui() {
+  # If running under WSL, only allow install when an active display exists (WSLg)
+  if is_wsl; then
+    has_active_display && return 0
+    return 1
+  fi
+
+  # Non-WSL systems
+  # Active display always wins
+  if has_active_display; then
+    return 0
+  fi
+
+  # Otherwise, check if the system is configured for a graphical target
+  if command -v systemctl >/dev/null 2>&1; then
+    systemctl get-default 2>/dev/null | grep -q graphical.target && return 0
+  fi
+
+  return 1
+}
+
+if ! has_gui; then
+  echo "No usable desktop environment detected. Skipping Firefox installation."
   exit 0
 fi
 
-echo "Installing Firefox..."
+echo "Desktop environment detected."
 
 if command -v firefox >/dev/null 2>&1; then
   echo "Firefox already installed."
   exit 0
 fi
+
+echo "Installing Firefox..."
 
 if command -v apt >/dev/null 2>&1; then
   sudo apt update

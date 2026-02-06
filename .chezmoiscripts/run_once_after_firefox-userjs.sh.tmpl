@@ -14,23 +14,46 @@ is_wsl() {
   esac
 }
 
-if is_wsl; then
-  echo "WSL detected. Skipping Firefox user.js setup."
+has_active_display() {
+  [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]
+}
+
+has_gui() {
+  # On WSL, require an active display (WSLg)
+  if is_wsl; then
+    has_active_display && return 0
+    return 1
+  fi
+
+  # Non-WSL systems
+  has_active_display && return 0
+
+  # Fallback: system configured for GUI
+  if command -v systemctl >/dev/null 2>&1; then
+    systemctl get-default 2>/dev/null | grep -q graphical.target && return 0
+  fi
+
+  return 1
+}
+
+if ! has_gui; then
+  echo "No usable desktop environment detected. Skipping Firefox user.js setup."
   exit 0
 fi
-
-echo "Configuring Firefox user.js (real Linux)..."
-
-FIREFOX_DIR="$HOME/.mozilla/firefox"
-USERJS="$FIREFOX_DIR/user.js"
 
 if ! command -v firefox >/dev/null 2>&1; then
   echo "Firefox is not installed. Skipping user.js setup."
   exit 0
 fi
 
+echo "Configuring Firefox user.js..."
+
+FIREFOX_DIR="$HOME/.mozilla/firefox"
+USERJS="$FIREFOX_DIR/user.js"
+
 mkdir -p "$FIREFOX_DIR"
 
+# Create a default profile only if Firefox can actually run
 if ! find "$FIREFOX_DIR" -maxdepth 1 -type d -name "*.default*" -print -quit | grep -q .; then
   echo "No Firefox profile found. Creating default profile..."
   firefox -headless -CreateProfile default >/dev/null 2>&1 || true
