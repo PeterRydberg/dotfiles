@@ -9,7 +9,7 @@ echo
 echo "To start using it now, run:"
 echo "  exec zsh"
 echo
-echo "Otherwise, log out and back in."
+echo "Remember to install and enable a font supporting glyphs (https://www.nerdfonts.com/)"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo
 
