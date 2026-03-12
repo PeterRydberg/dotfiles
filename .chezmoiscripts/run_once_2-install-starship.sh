@@ -13,6 +13,7 @@ if command -v brew >/dev/null 2>&1; then
   brew install starship
 
 elif command -v apt >/dev/null 2>&1; then
+  sudo add-apt-repository -y universe
   sudo apt update
   sudo apt install -y starship
 
