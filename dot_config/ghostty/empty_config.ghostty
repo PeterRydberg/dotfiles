@@ -1,4 +1,4 @@
 # Keybindings
-keybind = alt+shift+d=new_split:down
-keybind = alt+d=new_split:right
+keybind = alt+shift+d=new_split:right
+keybind = alt+d=new_split:down
 keybind = ctrl+shift+w=close_surface
