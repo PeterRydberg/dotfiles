@@ -87,7 +87,7 @@ fi
 if [ ! -f "$SSH_KEY" ]; then
   echo "🔑 Generating SSH key..."
   mkdir -p "$HOME/.ssh"
-  ssh-keygen -t ed25519 -C "$GITHUB_EMAIL" -f "$SSH_KEY" -N ""
+  ssh-keygen -t ed25519 -C "$GITHUB_EMAIL" -f "$SSH_KEY"
 else
   echo "SSH key already exists."
 fi
