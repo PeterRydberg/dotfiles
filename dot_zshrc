@@ -55,3 +55,6 @@ if [[ -n "$WSL_INTEROP" || -n "$WSL_DISTRO_NAME" ]]; then
   precmd_functions+=(keep_current_path)
 fi
 
+
+# Authorize external NPM repos #
+export NPM_AUTH_TOKEN=$(gh auth token)
