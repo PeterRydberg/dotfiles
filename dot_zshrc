@@ -44,7 +44,7 @@ bindkey "\e[3~" delete-char
 # Alias #
 
 alias cz=chezmoi
-
+alias k='kubectl'
 
 
 # WSL #
@@ -58,3 +58,9 @@ fi
 
 # Authorize external NPM repos #
 export NPM_AUTH_TOKEN=$(gh auth token)
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
