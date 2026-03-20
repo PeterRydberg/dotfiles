@@ -3,10 +3,10 @@ keybind = alt+shift+d=new_split:right
 keybind = alt+d=new_split:down
 keybind = ctrl+shift+w=close_surface
 
-keybind = alt+shift+left=resize_split:left,10
-keybind = alt+shift+right=resize_split:right,10
-keybind = alt+shift+up=resize_split:up,10
-keybind = alt+shift+down=resize_split:down,10
+keybind = alt+shift+left=resize_split:left,25
+keybind = alt+shift+right=resize_split:right,25
+keybind = alt+shift+up=resize_split:up,25
+keybind = alt+shift+down=resize_split:down,25
 
 keybind = performable:ctrl+c=copy_to_clipboard
 keybind = performable:ctrl+v=paste_from_clipboard
