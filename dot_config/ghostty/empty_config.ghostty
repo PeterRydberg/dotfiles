@@ -10,3 +10,7 @@ keybind = alt+shift+down=resize_split:down,25
 
 keybind = performable:ctrl+c=copy_to_clipboard
 keybind = performable:ctrl+v=paste_from_clipboard
+
+background-opacity = 0.9
+background-opacity-cells = true
+background-blur = true
