@@ -8,9 +8,15 @@
     s             = status -sb
     st            = status
     ci            = commit
-    co            = checkout
+    co = "!f() { \
+        if [ \"$1\" = \"main\" ]; then \
+            git checkout main 2>/dev/null || git checkout master; \
+        else \
+            git checkout \"$@\"; \
+        fi \
+    }; f"
     br            = branch
-    pu            = push origin master
+    pu            = push origin HEAD
     up            = pull --rebase
     reb           = rebase
     l             = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen%cr%Creset' -n 15
@@ -32,9 +38,10 @@
     alias         = "!git config --get-regexp ^alias\\. | sed -e 's/^alias\\.//' -e 's/ / = /'"
     prettiercheck = "!git diff --diff-filter=MA --name-only HEAD~2... | xargs npx prettier --check"
     prettierwrite = "!git diff --diff-filter=MA --name-only HEAD~2... | xargs npx prettier --write"
-    giveup        = "!f() { \
+    giveup = "!f() { \
         branch=$(git rev-parse --abbrev-ref HEAD); \
-        git checkout main && \
+        default=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || (git checkout main 2>/dev/null && echo main || echo master)); \
+        git checkout \"$default\" && \
         git pull && \
         git branch -d \"$branch\" && \
         git push origin --delete \"$branch\"; \
