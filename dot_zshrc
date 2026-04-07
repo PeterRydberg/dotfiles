@@ -45,6 +45,7 @@ bindkey "\e[3~" delete-char
 
 alias cz=chezmoi
 alias k='kubectl'
+alias pn=pnpm
 
 
 # WSL #
