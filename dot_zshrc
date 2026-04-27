@@ -76,3 +76,20 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
+
+
+# History
+# History file and size
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+
+# Key options
+setopt APPEND_HISTORY        # Append rather than overwrite the history file
+setopt INC_APPEND_HISTORY    # Write to history file immediately, not on shell exit
+setopt SHARE_HISTORY         # Share history across all active sessions in real time
+setopt HIST_IGNORE_DUPS      # Don't record duplicate consecutive commands
+setopt HIST_IGNORE_ALL_DUPS  # Remove older duplicate entries from history
+setopt HIST_IGNORE_SPACE     # Don't record commands prefixed with a space
+setopt HIST_REDUCE_BLANKS    # Strip superfluous blanks
+setopt HIST_VERIFY           # Show expanded history command before executing
