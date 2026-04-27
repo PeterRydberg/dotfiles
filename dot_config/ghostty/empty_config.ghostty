@@ -14,3 +14,6 @@ keybind = performable:ctrl+v=paste_from_clipboard
 background-opacity = 0.9
 background-opacity-cells = true
 background-blur = true
+
+keybind = page_up=unbind
+keybind = page_down=unbind
