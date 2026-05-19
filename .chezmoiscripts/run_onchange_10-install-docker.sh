@@ -25,7 +25,11 @@ elif command -v apt >/dev/null 2>&1; then
   sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin || FALLBACK=1
 elif command -v dnf >/dev/null 2>&1; then
   sudo dnf install -y dnf-plugins-core
-  sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  if sudo dnf config-manager --help 2>&1 | grep -q '\-\-add-repo'; then
+    sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  else
+    sudo dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
+  fi
   sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
   sudo systemctl enable --now docker || FALLBACK=1
 elif command -v pacman >/dev/null 2>&1; then
