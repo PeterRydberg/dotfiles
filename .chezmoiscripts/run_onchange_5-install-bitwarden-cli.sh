@@ -33,7 +33,7 @@ install_pkg bw || {
     exit 1
   fi
 
-  sudo npm install -g @bitwarden/cli
+  npm install -g @bitwarden/cli
 }
 
 echo "✅ Bitwarden CLI installed."
