@@ -65,7 +65,6 @@ fi
 # Authorize external NPM repos #
 export NPM_AUTH_TOKEN=$(gh auth token 2>/dev/null)
 export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
-export ORG_GRADLE_PROJECT_githubPassword=$(gh auth token 2>/dev/null)
 
 
 export NVM_DIR="$HOME/.nvm"
