@@ -62,11 +62,6 @@ if [[ -n "$WSL_INTEROP" || -n "$WSL_DISTRO_NAME" ]]; then
 fi
 
 
-# Authorize external NPM repos #
-export NPM_AUTH_TOKEN=$(gh auth token 2>/dev/null)
-export GITHUB_TOKEN=$(gh auth token 2>/dev/null)
-
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -97,3 +92,7 @@ setopt HIST_IGNORE_ALL_DUPS  # Remove older duplicate entries from history
 setopt HIST_IGNORE_SPACE     # Don't record commands prefixed with a space
 setopt HIST_REDUCE_BLANKS    # Strip superfluous blanks
 setopt HIST_VERIFY           # Show expanded history command before executing
+
+
+# Source local overrides (not tracked by chezmoi)
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
