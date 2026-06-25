@@ -46,6 +46,10 @@ bindkey "\e[3;5~" kill-word
 # Delete next character
 bindkey "\e[3~" delete-char
 
+# Undo/redo
+bindkey '^Z' undo
+bindkey '^[[122;6u' redo
+
 
 # Alias #
 alias cz=chezmoi
